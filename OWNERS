@@ -1,0 +1,14 @@
+# Each list is sorted alphabetically, additions should maintain that order
+approvers:
+- anishasthana
+- crobby
+- lavlas
+- samuelvl
+- VaishnaviHire
+
+reviewers:
+- anishasthana
+- crobby
+- lavlas
+- samuelvl
+- VaishnaviHire

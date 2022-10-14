@@ -1,0 +1,64 @@
+apiVersion: kfdef.apps.kubeflow.org/v1
+kind: KfDef
+metadata:
+  name: opendatahub
+  namespace: opendatahub
+spec:
+  applications:
+  - kustomizeConfig:
+      parameters:
+      - name: s3_endpoint_url
+        value: s3.odh.com
+      repoRef:
+        name: manifests
+        path: jupyterhub/jupyterhub
+    name: jupyterhub
+  - kustomizeConfig:
+      overlays:
+      - additional
+      repoRef:
+        name: manifests
+        path: jupyterhub/notebook-images
+    name: notebook-images
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: ceph/object-storage/scc
+    name: ceph-nano-scc
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: ceph/object-storage/nano
+    name: ceph-nano
+  - kustomizeConfig:
+      parameters:
+      - name: SUPERSET_ADMIN_PASSWORD
+        value: admin
+      repoRef:
+        name: manifests-contrib
+        path: superset
+    name: superset
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: odhargo/cluster
+    name: odhargo-cluster
+  - kustomizeConfig:
+      parameters:
+        - name: namespace
+          value: openshift-operators
+      repoRef:
+        name: manifests-contrib
+        path: odhpachyderm/operator
+    name: odhpachyderm-operator
+  # Pachyderm deployer
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: odhpachyderm/deployer
+    name: odhpachyderm-deployer
+  repos:
+  - name: manifests
+    uri: https://github.com/opendatahub-io/odh-manifests/tarball/master
+  - name: manifests-contrib
+    uri: https://github.com/opendatahub-io-contrib/odh-contrib-manifests/tarball/main
