@@ -1,18 +1,23 @@
 apiVersion: kfdef.apps.kubeflow.org/v1
 kind: KfDef
 metadata:
-  name: opendatahub
+  name: odh-contrib
   namespace: opendatahub
 spec:
   applications:
+  ##################################################
+  # ODH Core Components
+  ##################################################
   - kustomizeConfig:
-      parameters:
-      - name: s3_endpoint_url
-        value: s3.odh.com
       repoRef:
         name: manifests
-        path: jupyterhub/jupyterhub
-    name: jupyterhub
+        path: odh-common
+    name: odh-common
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: odh-dashboard
+    name: odh-dashboard
   - kustomizeConfig:
       overlays:
       - additional
@@ -20,6 +25,30 @@ spec:
         name: manifests
         path: jupyterhub/notebook-images
     name: notebook-images
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: odh-notebook-controller
+    name: odh-notebook-controller
+  - kustomizeConfig:
+      overlays:
+        - odh-model-controller
+      repoRef:
+        name: manifests
+        path: model-mesh
+    name: model-mesh
+  - kustomizeConfig:
+      overlays:
+        - metadata-store-mysql
+        - ds-pipeline-ui
+        - object-store-minio
+      repoRef:
+        name: manifests
+        path: data-science-pipelines
+    name: data-science-pipelines
+  ##################################################
+  # ODH Contrib Components
+  ##################################################
   - kustomizeConfig:
       repoRef:
         name: manifests
@@ -57,6 +86,16 @@ spec:
         name: manifests-contrib
         path: odhpachyderm/deployer
     name: odhpachyderm-deployer
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: ray/operator
+    name: ray-operator
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: ray/cluster
+    name: ray-cluster
   repos:
   - name: manifests
     uri: https://github.com/opendatahub-io/odh-manifests/tarball/master
