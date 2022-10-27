@@ -39,9 +39,10 @@ spec:
     name: model-mesh
   - kustomizeConfig:
       overlays:
-        - metadata-store-mysql
+        - metadata-store-mariadb
         - ds-pipeline-ui
         - object-store-minio
+        - default-configs
       repoRef:
         name: manifests
         path: data-science-pipelines
