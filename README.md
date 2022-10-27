@@ -18,6 +18,7 @@ Open Data Hub is an end-to-end AI/ML platform on top of OpenShift Container Plat
 |   1.4       | (Ray.io)[ray/README.md]                                 |
 |   1.4       | (Pachyderm)[odhpachyderm/README.md]                     |
 |   1.4       | (Superset)[superset/README.md]                          |
+|   1.3       | (ArgoWorkflows)[odhargo/README.md]                      |
 |   1.3       | (Hue)[hue/README.md]                                    |
 |   1.3       | (Hive Thrift Server)[thriftserver/README.md]            |
 |   1.3       | (Trino)[trino/README.md]                                |

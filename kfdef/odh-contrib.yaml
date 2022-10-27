@@ -49,43 +49,7 @@ spec:
   ##################################################
   # ODH Contrib Components
   ##################################################
-  - kustomizeConfig:
-      repoRef:
-        name: manifests
-        path: ceph/object-storage/scc
-    name: ceph-nano-scc
-  - kustomizeConfig:
-      repoRef:
-        name: manifests
-        path: ceph/object-storage/nano
-    name: ceph-nano
-  - kustomizeConfig:
-      parameters:
-      - name: SUPERSET_ADMIN_PASSWORD
-        value: admin
-      repoRef:
-        name: manifests-contrib
-        path: superset
-    name: superset
-  - kustomizeConfig:
-      repoRef:
-        name: manifests-contrib
-        path: odhargo/cluster
-    name: odhargo-cluster
-  - kustomizeConfig:
-      parameters:
-        - name: namespace
-          value: openshift-operators
-      repoRef:
-        name: manifests-contrib
-        path: odhpachyderm/operator
-    name: odhpachyderm-operator
-  # Pachyderm deployer
-  - kustomizeConfig:
-      repoRef:
-        name: manifests-contrib
-        path: odhpachyderm/deployer
-    name: odhpachyderm-deployer
+  # Ray.io
   - kustomizeConfig:
       repoRef:
         name: manifests-contrib
@@ -96,8 +60,55 @@ spec:
         name: manifests-contrib
         path: ray/cluster
     name: ray-cluster
+  # Superset
+  - kustomizeConfig:
+      parameters:
+      - name: SUPERSET_ADMIN_PASSWORD
+        value: admin
+      repoRef:
+        name: manifests-contrib
+        path: superset
+    name: superset
+  # Pachyderm
+  - kustomizeConfig:
+      parameters:
+        - name: namespace
+          value: openshift-operators
+      repoRef:
+        name: manifests-contrib
+        path: odhpachyderm/operator
+    name: odhpachyderm-operator
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: odhpachyderm/deployer
+    name: odhpachyderm-deployer
+  # Ceph Nano
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: ceph/object-storage/scc
+    name: ceph-nano-scc
+  - kustomizeConfig:
+      repoRef:
+        name: manifests
+        path: ceph/object-storage/nano
+    name: ceph-nano
+  # ArgoWorkflows
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: odhargo/cluster
+    name: odhargo-cluster
+  - kustomizeConfig:
+      repoRef:
+        name: manifests-contrib
+        path: odhargo/odhargo
+    name: odhargo
   repos:
+    # ODH Core component manifests
   - name: manifests
     uri: https://github.com/opendatahub-io/odh-manifests/tarball/master
+    # ODH Contrib component manifests
   - name: manifests-contrib
     uri: https://github.com/opendatahub-io-contrib/odh-contrib-manifests/tarball/main
